@@ -1,12 +1,22 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <nav-bar></nav-bar>
+    <v-content transition="slide-x-transition">
+      <router-view></router-view>
+    </v-content>
+  </v-app>
 </template>
+
+<script>
+import NavBar from "./components/NavBar";
+
+export default {
+  name: "App",
+  components: {
+    NavBar
+  }
+};
+</script>
 
 <style>
 #app {
