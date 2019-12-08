@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import "@babel/polyfill";
 import firebase from "firebase";
 import Vuelidate from "vuelidate";
+
 //import fbKeys from "./fbKeys.js";
 Vue.config.productionTip = false;
 
@@ -39,12 +40,15 @@ new Vue({
   router,
   store,
   vuetify,
+  created() {
+    //initialize store data structure by submitting action.
+    this.$store.dispatch('getInterestOptions');
+  },
+  validations: {},
+
   render: h => h(App)
 }).$mount("#app");
 
-/*let db = firebase.firestore();
-let interests = db.collection("general").doc("interests").get().then(function(doc) {
-  return doc.data().interests;
-});
-*/
+
+
 

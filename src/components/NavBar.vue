@@ -45,7 +45,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Summer Search</v-toolbar-title>
       <v-spacer></v-spacer>
-      <span v-if="this.authenticated">Hi {"this.user"}!</span>
+      <span v-if="this.authenticated">Hi {{name}}!</span>
       <span v-else>
         <SignInDialog></SignInDialog>
         <RegistrationDialog></RegistrationDialog>
@@ -74,7 +74,9 @@ export default {
   }),
   computed: {
     ...mapState(["authenticated"]),
-    ...mapState(["user"])
+    ...mapState(["user"]),
+    ...mapState(["name"])
+
   }
 };
 </script>

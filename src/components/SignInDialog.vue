@@ -39,7 +39,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">Save</v-btn>
+        <v-btn color="blue darken-1" text @click="submit">Save</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -55,13 +55,11 @@ export default {
   name: "SignInDialog",
   mixins: [validationMixin],
   validations: {
-    name: { required },
     email: { required, email },
     password: { required, minLength: minLength(8) }
   },
   data: () => ({
     dialog: false,
-    name: "",
     email: "",
     password: ""
   }),
@@ -80,7 +78,20 @@ export default {
       !this.$v.password.required && errors.push("Password is required.");
       return errors;
     }
-  }
+  },
+    methods: {
+      submit() {
+
+        if (!this.$v.$anyError) {
+          this.$store.dispatch("userSignIn", {
+            email: this.email,
+            password: this.password
+          });
+          this.dialog = false;
+        }
+
+      }
+    }
 };
 </script>
 

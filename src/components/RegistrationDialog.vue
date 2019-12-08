@@ -14,10 +14,10 @@
               <v-text-field
                 label="Name*"
                 required
-                v-model="this.$v.name.$model"
+                v-model="$v.name.$model"
                 :error-messages="nameErrors"
-                @input="this.$v.name.$touch()"
-                @blur="this.$v.name.$touch()"
+                @input="$v.name.$touch()"
+                @blur="$v.name.$touch()"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -38,8 +38,8 @@
                 required
                 v-model="password"
                 :error-messages="passwordErrors"
-                @input="this.$v.password.$touch()"
-                @blur="this.$v.password.$touch()"
+                @input="$v.password.$touch()"
+                @blur="$v.password.$touch()"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
@@ -51,17 +51,7 @@
             </v-col>
             <v-col cols="12" sm="6">
               <v-autocomplete
-                :items="[
-                  'Skiing',
-                  'Ice hockey',
-                  'Soccer',
-                  'Basketball',
-                  'Hockey',
-                  'Reading',
-                  'Writing',
-                  'Coding',
-                  'Basejump'
-                ]"
+                :items="interestOptions"
                 label="Interests"
                 multiple
                 v-model="interests"
@@ -81,10 +71,11 @@
 </template>
 
 <script>
-import { validationMixin } from "vuelidate";
+  import { validationMixin } from "vuelidate";
 import required from "vuelidate/src/validators/required";
 import email from "vuelidate/src/validators/email";
 import minLength from "vuelidate/src/validators/minLength";
+import { mapState } from "vuex";
 
 export default {
   name: "RegistrationDialog",
@@ -99,10 +90,11 @@ export default {
     name: "",
     email: "",
     password: "",
-    grade: "",
+    grade: null,
     interests: []
   }),
   computed: {
+    ...mapState(["interestOptions"]),
     nameErrors() {
       const errors = [];
       if (!this.$v.name.$dirty) return errors;
