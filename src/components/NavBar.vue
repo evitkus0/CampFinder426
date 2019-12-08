@@ -10,23 +10,34 @@
             <v-list-item-title>Home</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item link to="/sign-up">
+
+        <v-list-item link to="/about">
           <v-list-item-action>
-            <v-icon>mdi-account-plus</v-icon>
+            <v-icon>mdi-white-balance-sunny</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Sign Up</v-list-item-title>
+            <v-list-item-title>About</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
 
-        <v-list-item link to="/sign-in">
+        <v-list-item link to="/submit">
           <v-list-item-action>
-            <v-icon>mdi-account</v-icon>
+            <v-icon>mdi-check-circle</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Sign In</v-list-item-title>
+            <v-list-item-title>Submit</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <v-list-item link to="/contact">
+          <v-list-item-action>
+            <v-icon>mdi-contact-mail</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Contact</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
       </v-list>
     </v-navigation-drawer>
 
@@ -64,7 +75,6 @@ export default {
   computed: {
     ...mapState(["authenticated"]),
     ...mapState(["user"])
-
   }
 };
 </script>
