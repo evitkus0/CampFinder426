@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template v-slot:activator="{ on }">
-      <v-btn color="secondary" v-on="on">Register</v-btn>
+      <v-btn text v-on="on">Register</v-btn>
     </template>
     <v-card>
       <v-card-title>
@@ -14,10 +14,10 @@
               <v-text-field
                 label="Name*"
                 required
-                v-model="name"
+                v-model="this.$v.name.$model"
                 :error-messages="nameErrors"
-                @input="$v.name.$touch()"
-                @blur="$v.name.$touch()"
+                @input="this.$v.name.$touch()"
+                @blur="this.$v.name.$touch()"
               ></v-text-field>
             </v-col>
             <v-col cols="12">
@@ -38,14 +38,15 @@
                 required
                 v-model="password"
                 :error-messages="passwordErrors"
-                @input="$v.password.$touch()"
-                @blur="$v.password.$touch()"
+                @input="this.$v.password.$touch()"
+                @blur="this.$v.password.$touch()"
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6">
               <v-select
                 :items="['9', '10', '11', '12']"
                 label="Grade (Rising)"
+                v-model="grade"
               ></v-select>
             </v-col>
             <v-col cols="12" sm="6">
@@ -63,6 +64,7 @@
                 ]"
                 label="Interests"
                 multiple
+                v-model="interests"
               ></v-autocomplete>
             </v-col>
           </v-row>
@@ -96,7 +98,9 @@ export default {
     dialog: false,
     name: "",
     email: "",
-    password: ""
+    password: "",
+    grade: "",
+    interests: []
   }),
   computed: {
     nameErrors() {
@@ -123,13 +127,18 @@ export default {
   },
   methods: {
     submit() {
-      this.dialog = false;
-      if (this.$refs.form.validate()) {
+
+      if (!this.$v.$anyError) {
         this.$store.dispatch("userJoin", {
           email: this.email,
-          password: this.password
+          password: this.password,
+          name: this.name,
+          interests: this.interests,
+          grade: this.grade
         });
+        this.dialog = false;
       }
+
     }
   }
 };
