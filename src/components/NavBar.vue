@@ -46,7 +46,9 @@
       <v-spacer></v-spacer>
       <span v-if="this.authenticated">
         Hi {{name}}!
-        <v-btn text v-on="on" link to="/account">View Account Details</v-btn>
+          <v-btn text v-on="on" link to="/account">View Account Details</v-btn>
+        
+        <v-btn text v-on="on" link to="/account">Logout</v-btn>
       </span>
       <span v-else>
         <SignInDialog></SignInDialog>
