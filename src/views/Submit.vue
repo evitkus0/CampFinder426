@@ -31,7 +31,7 @@
     </v-row>
   </v-container>
   </div>
-    <div class="container">
+    <div class="container" v-if="this.authenticated">
       <form>
         <v-text-field
           v-model="campName"
@@ -104,7 +104,6 @@
             ></v-text-field>
           </v-col>
         </v-row>
-
         <!--Camp Description and Logistics at bottom -->
         <v-text-field
           v-model="email"
@@ -151,7 +150,13 @@
         <v-btn @click="clear">clear</v-btn>
       </form>
     </div>
+      <div class = "container text-center" v-else>
+            <h2> Please register or sign in to submit program/camp recommendations. This helps us to contact you if we have additional question. :) </h2>
+               <!--    <RegistrationDialog></RegistrationDialog>  -->
+      </div>
+        
   </div>
+  
 </template>
 
 
@@ -167,7 +172,11 @@
 }
 </style>
 <script>
-  import { validationMixin } from "vuelidate";
+//import RegistrationDialog from "src\components\RegistrationDialog.vue";
+//import RegistrationDialog from "components/RegistrationDialog.vue";
+//import SignInDialog from "components/SignInDialog.vue";
+
+import { validationMixin } from "vuelidate";
 import required from "vuelidate/src/validators/required";
 import email from "vuelidate/src/validators/email";
 import minLength from "vuelidate/src/validators/minLength";
@@ -196,6 +205,8 @@ export default {
   }),
   computed: {
     ...mapState(["interestOptions"]),
+        ...mapState(["authenticated"]),
+    ...mapState(["name"]),
     campNameErrors() {
       const errors = [];
       if (!this.$v.campName.$dirty) return errors;
@@ -249,4 +260,5 @@ export default {
   }
 };
 </script>
+
 
