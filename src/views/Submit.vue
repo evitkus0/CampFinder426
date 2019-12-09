@@ -37,13 +37,13 @@
           v-model="campName"
           :error-messages="campNameErrors"
 
-          label="Camp Name"
+          label="Camp Name*"
           required
           @input="$v.campName.$touch()"
           @blur="$v.campName.$touch()"
         ></v-text-field>
         <v-text-field
-          v-model="url"
+          v-model="url*"
           :error-messages="urlErrors"
           label="URL"
           required
@@ -117,7 +117,7 @@
         <v-textarea
           v-model="description"
           :error-messages="descriptionErrors"
-          label="Describe the camp"
+          label="Describe the camp*"
           required
           auto-grow
           rows="4"
