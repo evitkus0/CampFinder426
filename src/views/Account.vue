@@ -5,9 +5,9 @@
     <li>favorite 1</li>
     <li>favorite 2</li>
     <li>favorite 3</li>
-    <v-btn text v-on="on"  >View Account Preferences</v-btn>
-        <v-btn text v-on="on"   @click="submit" link to = "/">Delete Account</v-btn>
-
+    <v-btn text v-on="on" v-on:click="isHidden = !isHidden" >View Account Preferences</v-btn>
+        <v-btn text v-on="on"  @click="submit" link to = "/">Delete Account</v-btn>
+<h1 v-if="!isHidden">Hide me on click event!</h1>
   </div>
 </template>
 
@@ -20,7 +20,8 @@ export default {
     source: String
   },
   data: () => ({
-    drawer: null
+    drawer: null,
+    isHidden: true
   }),
   computed: {
     ...mapState(["authenticated"]),
