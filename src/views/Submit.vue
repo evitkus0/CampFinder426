@@ -2,46 +2,58 @@
 <template>
   <div class="Contact">
     <div class="submit text-center">
-    <h1>Know a great summer program? Share it with SummerSearch here!</h1>
+      <h1>Know a great summer program? Share it with SummerSearch here!</h1>
 
-<v-container class="grey lighten-5 containerPadding">
-              <v-row justify="center">      <v-col>
+      <v-container class="grey lighten-5 containerPadding">
+        <v-row justify="center">
+          <v-col>
+            <v-card class="mx-auto" max-width="600px">
+              <v-img
+                class="white--text align-end"
+                height="300px"
+                src="https://www.usnews.com/dims4/USNEWS/871b6f1/2147483647/thumbnail/640x420/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2F64%2F61%2Fc1f49d6447d0baf9e9743b185f91%2F140509-highschoolteamwork-stock.jpg"
+              ></v-img>
+            </v-card>
+          </v-col>
+          <v-col>
+            <v-layout row wrap align-center>
+              <div></div>
 
-    <v-card
-        class="mx-auto"
-        max-width="600px"
-      >
-                      <v-img
-                        class="white--text align-end"
-                        height="300px"
-                        src="https://www.usnews.com/dims4/USNEWS/871b6f1/2147483647/thumbnail/640x420/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2F64%2F61%2Fc1f49d6447d0baf9e9743b185f91%2F140509-highschoolteamwork-stock.jpg"
-                      >
-                      </v-img>
-                    </v-card>        
-      </v-col>
-            <v-col>
-                      <v-layout row wrap align-center>
-                      <div> </div>
-
-          
-      <p class="padding"> Our service is greatly augmented by users and organizations that help us build out our portfolio of camps. Your suggestion increases the chances that an aspiring young student can find the program of their dreams!</p> 
-       <p class="padding"> Please consider filling out the form below to have your camp, or a camp/program you know of, be featured within our platform!</p> </v-layout>
-
-      </v-col>
-    </v-row>
-  </v-container>
-  </div>
+              <p
+                class="padding"
+              >Our service is greatly augmented by users and organizations that help us build out our portfolio of camps. Your suggestion increases the chances that an aspiring young student can find the program of their dreams!</p>
+              <p
+                class="padding"
+              >Please consider filling out the form below to have your camp, or a camp/program you know of, be featured within our platform!</p>
+            </v-layout>
+          </v-col>
+        </v-row>
+      </v-container>
+    </div>
     <div class="container" v-if="this.authenticated">
       <form>
-        <v-text-field
-          v-model="campName"
-          :error-messages="campNameErrors"
-
-          label="Camp Name*"
-          required
-          @input="$v.campName.$touch()"
-          @blur="$v.campName.$touch()"
-        ></v-text-field>
+        <v-row>
+          <v-col cols="12" md="4">
+            <v-text-field
+              v-model="campName"
+              :error-messages="campNameErrors"
+              label="Camp Name*"
+              required
+              @input="$v.campName.$touch()"
+              @blur="$v.campName.$touch()"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-text-field label="Program City" v-model="city"></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-select
+              label="Program State"
+              :items="['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']"
+              v-model="city"
+            ></v-select>
+          </v-col>
+        </v-row>
         <v-text-field
           v-model="url"
           :error-messages="urlErrors"
@@ -50,48 +62,36 @@
           @input="$v.url.$touch()"
           @blur="$v.url.$touch()"
         ></v-text-field>
+
         <v-row>
           <v-col cols="12" md="4">
-                     <v-select
-                :items="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
-                label="Due Date"
-                v-model="dueDate"
-              ></v-select>    
-
-
+            <v-select
+              :items="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
+              label="Due Date"
+              v-model="dueDate"
+            ></v-select>
           </v-col>
           <v-col cols="12" md="4">
-             <v-select
-                :items="['9', '10', '11', '12']"
-                label="Minimum Grade"
-                v-model="grade"
-              ></v-select>
-
+            <v-select :items="['9', '10', '11', '12']" label="Minimum Grade" v-model="grade"></v-select>
           </v-col>
           <v-col cols="12" md="4">
-                         <v-select
-                :items="['9', '10', '11', '12']"
-                label="Maxiumum Grade"
-                v-model="gradeMax"
-              ></v-select>
-
+            <v-select :items="['9', '10', '11', '12']" label="Maxiumum Grade" v-model="gradeMax"></v-select>
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" md="4">
-                                 <v-select
-                :items="['11', '12', '13', '14', '15', '16', '17', '18', '19']"
-                label="Minimum Age"
-                v-model="minAge"
-              ></v-select>    
-
+            <v-select
+              :items="['11', '12', '13', '14', '15', '16', '17', '18', '19']"
+              label="Minimum Age"
+              v-model="minAge"
+            ></v-select>
           </v-col>
           <v-col cols="12" md="4">
-                                             <v-select
-                :items="['11', '12', '13', '14', '15', '16', '17', '18', '19']"
-                label="Maximum Age"
-                v-model="maxAge"
-              ></v-select>  
+            <v-select
+              :items="['11', '12', '13', '14', '15', '16', '17', '18', '19']"
+              label="Maximum Age"
+              v-model="maxAge"
+            ></v-select>
           </v-col>
           <v-col cols="12" md="4">
             <v-text-field
@@ -135,7 +135,7 @@
           @input="$v.logistics.$touch()"
           @blur="$v.logistics.$touch()"
         ></v-textarea>
-                <small>*indicates required field</small>
+        <small>*indicates required field</small>
 
         <v-checkbox
           v-model="checkbox"
@@ -150,25 +150,22 @@
         <v-btn @click="clear">clear</v-btn>
       </form>
     </div>
-      <div class = "container text-center" v-else>
-            <h2> Please register or sign in to submit program/camp recommendations. This helps us  contact you if we have additional questions :) </h2>
-               <!--    <RegistrationDialog></RegistrationDialog>  -->
-      </div>
-        
+    <div class="container text-center" v-else>
+      <h2>Please register or sign in to submit program/camp recommendations. This helps us contact you if we have additional questions :)</h2>
+      <!--    <RegistrationDialog></RegistrationDialog>  -->
+    </div>
   </div>
-  
 </template>
 
 
 <style>
-
-.padding{
+.padding {
   margin-top: 50px;
-  margin-right: 70px
+  margin-right: 70px;
 }
-.containerPadding{
+.containerPadding {
   margin-left: 20px;
-  margin-right: 20px
+  margin-right: 20px;
 }
 </style>
 <script>
@@ -180,17 +177,17 @@ import { validationMixin } from "vuelidate";
 import required from "vuelidate/src/validators/required";
 import email from "vuelidate/src/validators/email";
 import minLength from "vuelidate/src/validators/minLength";
-import url from "vuelidate/src/validators/url"
+import url from "vuelidate/src/validators/url";
 import { mapState } from "vuex";
 export default {
   name: "RegistrationDialog",
-  
+
   mixins: [validationMixin],
   validations: {
     campName: { required },
-    description: {required},
+    description: { required },
     email: { required, email },
-    url: {required, url},
+    url: { required, url },
     password: { required, minLength: minLength(8) }
   },
   data: () => ({
@@ -205,7 +202,7 @@ export default {
   }),
   computed: {
     ...mapState(["interestOptions"]),
-        ...mapState(["authenticated"]),
+    ...mapState(["authenticated"]),
     ...mapState(["name"]),
     campNameErrors() {
       const errors = [];
@@ -220,7 +217,7 @@ export default {
       !this.$v.email.required && errors.push("Email is required");
       return errors;
     },
-    urlErrors(){
+    urlErrors() {
       const errors = [];
       if (!this.$v.url.$dirty) return errors;
       !this.$v.url.url && errors.push("Must be valid link");
@@ -235,16 +232,16 @@ export default {
       !this.$v.password.required && errors.push("Password is required.");
       return errors;
     },
-      descriptionErrors() {
+    descriptionErrors() {
       const errors = [];
       if (!this.$v.description.$dirty) return errors;
-      !this.$v.description.required && errors.push("Camp description is required.");
+      !this.$v.description.required &&
+        errors.push("Camp description is required.");
       return errors;
     }
   },
   methods: {
     submit() {
-
       if (!this.$v.$anyError) {
         this.$store.dispatch("userJoin", {
           email: this.email,
@@ -255,7 +252,6 @@ export default {
         });
         this.dialog = false;
       }
-
     }
   }
 };
