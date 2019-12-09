@@ -2,7 +2,7 @@
 <template>
   <div class="Contact">
     <div class="submit text-center">
-    <h1>Know a great summer program? Share it with our SummerSearch community here!</h1>
+    <h1>Know a great summer program? Share it with SummerSearch here!</h1>
 
 <v-container class="grey lighten-5 containerPadding">
               <v-row justify="center">      <v-col>
@@ -151,7 +151,7 @@
       </form>
     </div>
       <div class = "container text-center" v-else>
-            <h2> Please register or sign in to submit program/camp recommendations. This helps us to contact you if we have additional question. :) </h2>
+            <h2> Please register or sign in to submit program/camp recommendations. This helps us  contact you if we have additional questions :) </h2>
                <!--    <RegistrationDialog></RegistrationDialog>  -->
       </div>
         
@@ -260,5 +260,4 @@ export default {
   }
 };
 </script>
-
 
