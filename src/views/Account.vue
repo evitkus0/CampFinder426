@@ -6,7 +6,6 @@
     <li>favorite 2</li>
     <li>favorite 3</li>
     <div v-if="!isHidden">
-      <p>Hide me on click event!</p>
       <!--<v-text-field
         label="Name*"
         v-model="$v.name.$model"
