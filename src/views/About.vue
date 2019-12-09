@@ -13,10 +13,10 @@
         <v-carousel-item src="https://res.cloudinary.com/hud9ala09/image/upload/v1503440944/d6hbrirgeh1ov8thmsow.jpg">
     </v-carousel-item>
   </v-carousel>
-  <div> \n \n \n </div>
+  <div> </div>
       <h1 class="text-center">Our Team</h1>
 
-     <p class="text-center blockquote" > SummerSearch is a service seeking to democratize the education sector for high school students. Students, regardless of their backgrounds, are able to find the key experiences they need for growth. We hope that this free service can connect programs and individuals alike.</p>
+     <p class="text-center blockquote" >Our team comes from a variety of personal and professional backgrounds. We bring diverse skillsets to the table and are united by a passion for education.</p>
 
  <v-container class="grey lighten-5">
     <v-row no-gutters>
