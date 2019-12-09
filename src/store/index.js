@@ -98,6 +98,18 @@ export default new Vuex.Store({
                   commit("setIsAuthenticated", false);
               });
 
+      },
+      deleteAccount({commit}) {
+        let db = firebase.firestore();
+        db.doc(this.state.uid).delete();
+        this.state.dispatch("logout");
+      },
+      logout({commit}) {
+          commit("setUser", null);
+          commit("setIsAuthenticated", false);
+          commit("setName", null);
+          commit("setGrade", null);
+          commit("setUid", null);
       }
   },
   modules: {},

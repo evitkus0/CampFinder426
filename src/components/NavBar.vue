@@ -11,6 +11,15 @@
           </v-list-item-content>
         </v-list-item>
 
+        <v-list-item link to="/">
+          <v-list-item-action>
+            <v-icon>mdi-home</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Home</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+
         <v-list-item link to="/about">
           <v-list-item-action>
             <v-icon>mdi-white-balance-sunny</v-icon>
@@ -48,7 +57,7 @@
         Hi {{name}}!
           <v-btn text v-on="on" link to="/account">View Account Details</v-btn>
         
-        <v-btn text v-on="on" link to="/account">Logout</v-btn>
+        <v-btn text @click="logout">Logout</v-btn>
       </span>
       <span v-else>
         <SignInDialog></SignInDialog>
@@ -80,6 +89,11 @@ export default {
     ...mapState(["authenticated"]),
     ...mapState(["user"]),
     ...mapState(["name"])
+  },
+  methods: {
+    submit() {
+      this.$store.dispatch("logout");
+    }
   }
 };
 </script>

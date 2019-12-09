@@ -13,7 +13,7 @@
 
 <script>
 import { mapState } from "vuex";
-    import firebase from "firebase";
+
 export default {
   name: "NavBar",
   props: {
@@ -29,7 +29,7 @@ export default {
   },
   methods: {
       submit() {
-            firebase.auth().currentUser.delete();
+            this.$store.dispatch("deleteAccount");
       }
     }
 };
