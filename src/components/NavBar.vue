@@ -37,7 +37,6 @@
             <v-list-item-title>Contact</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-
       </v-list>
     </v-navigation-drawer>
 
@@ -45,7 +44,10 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title>Summer Search</v-toolbar-title>
       <v-spacer></v-spacer>
-      <span v-if="this.authenticated">Hi {{name}}!</span>
+      <span v-if="this.authenticated">
+        Hi {{name}}!
+        <v-btn text v-on="on" link to="/account">View Account Details</v-btn>
+      </span>
       <span v-else>
         <SignInDialog></SignInDialog>
         <RegistrationDialog></RegistrationDialog>
@@ -76,7 +78,6 @@ export default {
     ...mapState(["authenticated"]),
     ...mapState(["user"]),
     ...mapState(["name"])
-
   }
 };
 </script>
