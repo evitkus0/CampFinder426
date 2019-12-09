@@ -38,7 +38,7 @@
 
                   <v-card-text class="text--primary">
 
-                    <div>Lily enjoys---------</div>
+                    <div>Lily enjoys lending books to Cara</div>
                   </v-card-text>
                 </v-card>        
       </v-col>
@@ -59,7 +59,7 @@
 
                   <v-card-text class="text--primary">
 
-                    <div>Cara enjoys---------</div>
+                    <div>Cara enjoys lending books to Lily</div>
                   </v-card-text>
                 </v-card>        
       </v-col>
