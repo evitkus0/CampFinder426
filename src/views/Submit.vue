@@ -43,9 +43,9 @@
           @blur="$v.campName.$touch()"
         ></v-text-field>
         <v-text-field
-          v-model="url*"
+          v-model="url"
           :error-messages="urlErrors"
-          label="URL"
+          label="URL*"
           required
           @input="$v.url.$touch()"
           @blur="$v.url.$touch()"
