@@ -42,7 +42,7 @@
 
     <v-app-bar app dark clipped-left color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title>Summer Search</v-toolbar-title>
+      <v-toolbar-title><img src="https://i.ibb.co/w0Fj6J3/Yellow-Cute-Animal-Logo-1-1.png" height="51"></v-toolbar-title>
       <v-spacer></v-spacer>
       <span v-if="this.authenticated">
         Hi {{name}}!
