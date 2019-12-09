@@ -1,5 +1,36 @@
+
 <template>
   <div class="Contact">
+    <div class="submit text-center">
+    <h1>Know a great summer program? Share it with our SummerSearch community here!</h1>
+
+<v-container class="grey lighten-5 containerPadding">
+              <v-row justify="center">      <v-col>
+
+    <v-card
+        class="mx-auto"
+        max-width="600px"
+      >
+                      <v-img
+                        class="white--text align-end"
+                        height="300px"
+                        src="https://www.usnews.com/dims4/USNEWS/871b6f1/2147483647/thumbnail/640x420/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2F64%2F61%2Fc1f49d6447d0baf9e9743b185f91%2F140509-highschoolteamwork-stock.jpg"
+                      >
+                      </v-img>
+                    </v-card>        
+      </v-col>
+            <v-col>
+                      <v-layout row wrap align-center>
+                      <div> </div>
+
+          
+      <p class="padding"> Our service is greatly augmented by users and organizations that help us build out our portfolio of camps. Your suggestion increases the chances that an aspiring young student can find the program of their dreams!</p> 
+       <p class="padding"> Please consider filling out the form below to have your camp, or a camp/program you know of, be featured within our platform!</p> </v-layout>
+
+      </v-col>
+    </v-row>
+  </v-container>
+  </div>
     <div class="container">
       <form>
         <v-text-field
@@ -129,3 +160,17 @@
     </div>
   </div>
 </template>
+
+
+<style scoped>
+
+.padding{
+  margin-top: 50px;
+  margin-left: 10px;
+  margin-right: 10px
+}
+.containerPadding{
+  margin-left: 20px;
+  margin-right: 20px
+}
+</style scoped>
