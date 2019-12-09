@@ -99,7 +99,7 @@ export default new Vuex.Store({
               });
 
       },
-      deleteAccount({commit}) {
+      deleteAccount() {
         let db = firebase.firestore();
         db.doc(this.state.uid).delete();
         this.state.dispatch("logout");
