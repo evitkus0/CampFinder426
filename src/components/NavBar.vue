@@ -91,7 +91,7 @@ export default {
     ...mapState(["name"])
   },
   methods: {
-    submit() {
+    logout() {
       this.$store.dispatch("logout");
     }
   }
