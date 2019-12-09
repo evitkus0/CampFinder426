@@ -1,11 +1,11 @@
 <template>
+    <v-slide-item class="ma-3">
     <v-card
-            class="mx-auto"
             max-width="344"
             outlined
     >
         <v-card-title>
-            <a v-bind:href="link" target="_blank">{{title}}</a>
+            <a v-bind:href="this.program.url" target="_blank">{{this.program.title}}</a>
         </v-card-title>
 
         <v-card-subtitle>
@@ -30,25 +30,23 @@
 
         </v-card-actions>
     </v-card>
+    </v-slide-item>
 </template>
 
 <script>
     export default {
         name: "ProgramCard",
-        data: () => ({
-            title: "National Security Language Initiative for Youth",
-            interests: ["Languages", "Literature"],
-            location: "Abroad (Multiple)",
-            link: "https://www.nsliforyouth.org/",
-            about: "The National Security Language Initiative for Youth (NSLI-Y) program, sponsored by the U.S. Department of State, provides merit-based scholarships for high school students to study less commonly taught languages in countries where they’re spoken."
-        }),
+        props: {
+          program: Object
+        },
+        data: () => ({}),
         computed: {
             interestList() {
-                if(this.interests !== null) {
-                    let str = this.interests[0];
-                    for(let i = 1; i < this.interests.length; i++) {
+                if(this.program.interests !== null) {
+                    let str = this.program.interests[0];
+                    for(let i = 1; i < this.program.interests.length; i++) {
                         str += ", ";
-                        str += this.interests[i];
+                        str += this.program.interests[i];
                     }
                     return str;
                 } else {

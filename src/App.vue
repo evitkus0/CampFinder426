@@ -2,7 +2,9 @@
   <v-app>
     <nav-bar></nav-bar>
     <v-content transition="slide-x-transition">
+      <v-container class="pa-3">
       <router-view></router-view>
+      </v-container>
     </v-content>
   </v-app>
 </template>

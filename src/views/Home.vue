@@ -1,33 +1,19 @@
 <template>
   <div class="home">
-
-
-      <v-slide-group multiple>
-        <v-slide-item class="ma-3">
-          <ProgramCard></ProgramCard>
-        </v-slide-item>
-        <v-slide-item class="ma-3">
-          <ProgramCard></ProgramCard>
-        </v-slide-item>
-        <v-slide-item class="ma-3">
-          <ProgramCard></ProgramCard>
-        </v-slide-item>
-        <v-slide-item class="ma-3">
-          <ProgramCard></ProgramCard>
-        </v-slide-item>
-      </v-slide-group>
-
+    <ProgramRow interest="Art"></ProgramRow>
+    <ProgramRow interest="Technology"></ProgramRow>
+    <ProgramRow interest="Language"></ProgramRow>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ProgramCard from "@/components/ProgramCard.vue";
+import ProgramRow from "../components/ProgramRow.vue";
 
 export default {
   name: "home",
   components: {
-    ProgramCard
+    ProgramRow
   }
 };
 </script>
