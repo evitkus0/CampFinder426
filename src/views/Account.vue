@@ -30,10 +30,10 @@ export default {
   methods: {
       submit() {
             firebase.auth().currentUser.delete();
-            console.log("asdfasdf")
       }
     }
 };
 </script>
 
 <style scoped></style>
+
