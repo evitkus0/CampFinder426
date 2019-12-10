@@ -47,6 +47,15 @@ export default new Vuex.Store({
         commit("setInterestOptions", doc.data().interests);
       });
     },
+    updateUser({commit}, {name, grade}){
+      let db = firebase.firestore();
+  //    var newstuff = db.collection('users').doc(this.state.uid);
+  //    newstuff.update({name: name, grade: grade});
+      db.collection("users").doc(this.state.uid).update({
+        name: name,
+        grade: grade
+    });
+    },
     userJoin({ commit }, { email, password, name, interests, grade }) {
       firebase
         .auth()
