@@ -10,20 +10,27 @@
                 v-model="interests"
         ></v-autocomplete>
             </v-col>
-        <v-col cols="12" sm="6">
+        <v-col cols="12" sm="4">
+            <v-select
+                    :items="['Abroad', 'Domestic', 'Abroad and Domestic']"
+                    label="Location"
+                    v-model="location"
+            ></v-select>
+        </v-col>
+        <v-col cols="12" sm="4">
             <v-select
                     :items="['9', '10', '11', '12']"
                     label="Grade (Rising)"
                     v-model="grade"
             ></v-select>
         </v-col>
-        <v-col cols="12" sm="6">
-            <v-select
-                    :items="['13', '14', '15', '16', '17', '18']"
-                    label="Age"
-                    v-model="age"
-            ></v-select>
-        </v-col>
+            <v-col cols="12" sm="4">
+                <v-select
+                        :items="['13', '14', '15', '16', '17', '18']"
+                        label="Age"
+                        v-model="age"
+                ></v-select>
+            </v-col>
             <v-col cols="12">
                 <v-subheader>Maximum Price</v-subheader>
                 <v-slider
@@ -77,7 +84,8 @@
             grade: null,
             interests: [],
             maxPrice: 0,
-            programs: []
+            location: null,
+            programs: [],
         }),
         computed: {
             ...mapState(["interestOptions"]),
@@ -88,40 +96,79 @@
               this.grade = null;
               this.maxPrice = 0;
               this.interests = [];
+              this.location = null;
           },
             submitSearch() {
                 this.programs = [];
                 let db = firebase.firestore();
                 let processingPrograms = [];
+                let vm = this;
                 if(this.interests.length !== 0) {
                         db.collection("programs").where("interests", "array-contains-any", this.interests).where("price", "<=", this.maxPrice).get()
                             .then(function (querySnapshot) {
                                 querySnapshot.forEach(function (doc) {
                                     processingPrograms.push(doc.data());
                                 });
+                            }).then(function() {
+                            processingPrograms = processingPrograms.filter(function(program) {
+                                return program.approved;
                             });
+                            if(vm.location === "Abroad") {
+                                processingPrograms = processingPrograms.filter(function(program) {
+                                    return (program.abroad === "TRUE");
+                                });
+                            }
+                            if(vm.location === "Domestic") {
+                                processingPrograms = processingPrograms.filter(function(program) {
+                                    return !(program.abroad === "TRUE");
+                                });
+                            }
+                            if(vm.age !== null) {
+                                processingPrograms = processingPrograms.filter(function(program) {
+                                    return vm.age >= program.minAge &&  vm.age <= program.maxAge;
+                                });
+                            }
+                            if(vm.grade !== null) {
+                                processingPrograms.filter(function(program) {
+                                    return vm.grade >= program.minYear &&  vm.grade <= program.maxYear;
+                                });
+                            }
+                            vm.programs = processingPrograms;
+                        });;
                 } else {
                     db.collection("programs").where("price", "<=", this.maxPrice).get()
                         .then(function (querySnapshot) {
                             querySnapshot.forEach(function (doc) {
                                 processingPrograms.push(doc.data());
                             });
+                        }).then(function() {
+                        processingPrograms = processingPrograms.filter(function(program) {
+                            return program.approved;
                         });
-                }
-                processingPrograms = processingPrograms.filter(function(program) {
-                    return program.approved;
-                });
-                if(this.age !== null) {
-                    processingPrograms = processingPrograms.filter(function(program) {
-                        return this.age >= program.minAge &&  this.age <= program.maxAge;
+                        if(vm.location === "Abroad") {
+                            processingPrograms = processingPrograms.filter(function(program) {
+                                return (program.abroad === "TRUE");
+                            });
+                        }
+                        if(vm.location === "Domestic") {
+                            processingPrograms = processingPrograms.filter(function(program) {
+                                return !(program.abroad === "TRUE");
+                            });
+                        }
+                        if(vm.age !== null) {
+                            processingPrograms = processingPrograms.filter(function(program) {
+                                return vm.age >= program.minAge &&  vm.age <= program.maxAge;
+                            });
+                        }
+                        if(vm.grade !== null) {
+                            processingPrograms.filter(function(program) {
+                                return vm.grade >= program.minYear &&  vm.grade <= program.maxYear;
+                            });
+                        }
+                        vm.programs = processingPrograms;
                     });
                 }
-                if(this.grade !== null) {
-                    processingPrograms.filter(function(program) {
-                        return this.grade >= program.minYear &&  this.grade <= program.maxYear;
-                    });
-                }
-                this.programs = processingPrograms;
+
             }
 
         },
