@@ -121,6 +121,16 @@
                         <v-icon>mdi-star</v-icon>
                     </v-btn>
                 </div>
+                           <div> 
+                <v-btn icon @click="shareFacebook">
+                    <v-icon> mdi-facebook </v-icon> 
+                    </v-btn>
+            </div>
+                        <div> 
+                <v-btn icon @click="shareTwitter">
+                    <v-icon> mdi-twitter </v-icon> 
+                    </v-btn>
+            </div>
             </v-card-actions>
         </v-card>
     </v-dialog>
