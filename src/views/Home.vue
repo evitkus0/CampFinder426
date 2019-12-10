@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <v-container grid-list-md>
+    <v-container>
       <v-layout row wrap>
-        <v-flex xs8>
+        <v-flex xs8 lg8>
       <v-autocomplete
               :items="this.interestOptions"
               label="Interests"
@@ -12,8 +12,8 @@
               v-model="interests"
       ></v-autocomplete>
           </v-flex>
-        <v-spacer></v-spacer>
-        <v-flex xs4>
+
+        <v-flex class="flex-shrink-1">
       <v-switch v-model="freeOnly" :label="switchLabel" ></v-switch>
           </v-flex>
       </v-layout>
@@ -56,7 +56,7 @@ export default {
         return this.$store.state.interests;
       },
       set (value) {
-        this.$store.commit('setInterests', value)
+        this.$store.commit('setInterests', value);
       }
     },
 

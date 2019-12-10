@@ -54,10 +54,8 @@
       <v-toolbar-title><img src="https://i.ibb.co/w0Fj6J3/Yellow-Cute-Animal-Logo-1-1.png" height="51"></v-toolbar-title>
       <v-spacer></v-spacer>
       <span v-if="this.authenticated">
-        Hi {{name}}!
-          <v-btn text v-on="on" link to="/account">View Account Details</v-btn>
-        
-        <v-btn text @click="logout">Logout</v-btn>
+          <v-btn text link to="/account">My Account</v-btn>
+        <v-btn text @click="logout">Sign Out</v-btn>
       </span>
       <span v-else>
         <SignInDialog></SignInDialog>

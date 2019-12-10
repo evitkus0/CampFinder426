@@ -14,7 +14,8 @@ export default new Vuex.Store({
      grade: null,
       interests: [],
     interestOptions: [],
-      uid: null
+      uid: null,
+      favorites: []
   },
   mutations: {
     setUser(state, payload) {
@@ -38,23 +39,46 @@ export default new Vuex.Store({
     setInterestOptions(state, payload) {
       state.interestOptions = payload;
     },
+      setFavorites(state, payload) {
+          state.favorites = payload;
+      },
+      addFavorite(state, payload) {
+        this.state.favorites.push(payload);
+          if(state.authenticated) {
+              let db = firebase.firestore();
+              db.collection("users").doc(this.state.uid).update({
+                  favorites: state.favorites
+              });
+          }
+      },
+      removeFavorite(state, payload) {
+          let i = state.favorites.indexOf(payload);
+          state.favorites.splice(i, 1);
+          if(state.authenticated) {
+              let db = firebase.firestore();
+              db.collection("users").doc(this.state.uid).update({
+                  favorites: state.favorites
+              });
+          }
+      }
   },
   actions: {
     getInterestOptions({ commit}) {
         let db = firebase.firestore();
-
         db.collection("general").doc("interests").get().then(function(doc) {
         commit("setInterestOptions", doc.data().interests);
       });
     },
-    updateUser({commit}, {name, grade}){
+    updateUser({commit}, {name, interests, grade}){
       let db = firebase.firestore();
-  //    var newstuff = db.collection('users').doc(this.state.uid);
-  //    newstuff.update({name: name, grade: grade});
       db.collection("users").doc(this.state.uid).update({
-        name: name,
-        grade: grade
-    });
+            name: name,
+            interests: interests,
+            grade: grade
+        });
+        commit("setInterests", interests);
+        commit("setName", name);
+        commit("setGrade", grade);
     },
     userJoin({ commit }, { email, password, name, interests, grade }) {
       firebase
@@ -73,7 +97,8 @@ export default new Vuex.Store({
               name: name,
               grade: grade,
               interests: interests,
-              email: email
+              email: email,
+              favorites: this.state.favorites
           });
         })
         .catch(() => {
@@ -92,9 +117,9 @@ export default new Vuex.Store({
                   commit("setIsAuthenticated", true);
                   commit("setUid", user.user.uid);
                   let db = firebase.firestore();
-
                   db.collection("users").doc(user.user.uid).get().then(function(doc) {
                       let data = doc.data();
+                      commit("setFavorites", data.favorites);
                       commit("setInterests", data.interests);
                       commit("setName", data.name);
                       commit("setGrade", data.grade);
@@ -108,8 +133,9 @@ export default new Vuex.Store({
       },
       deleteAccount() {
         let db = firebase.firestore();
-        db.doc(this.state.uid).delete();
-        this.state.dispatch("logout");
+        db.collection("users").doc(this.state.uid).delete();
+        firebase.auth().currentUser.delete();
+        this.dispatch("logout");
       },
       logout({commit}) {
           commit("setUser", null);
@@ -117,7 +143,9 @@ export default new Vuex.Store({
           commit("setName", null);
           commit("setGrade", null);
           commit("setUid", null);
-      }
+          commit("setFavorites", []);
+      },
+
   },
   modules: {},
   plugins: [createPersistedState({

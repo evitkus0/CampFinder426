@@ -6,6 +6,7 @@ import vuetify from "./plugins/vuetify";
 import "@babel/polyfill";
 import firebase from "firebase";
 import Vuelidate from "vuelidate";
+import AsyncComputed from 'vue-async-computed'
 
 //import fbKeys from "./fbKeys.js";
 Vue.config.productionTip = false;
@@ -35,7 +36,7 @@ firebase.initializeApp(fbKeys);
 firebase.analytics();
 
 Vue.use(Vuelidate);
-
+Vue.use(AsyncComputed);
 new Vue({
   router,
   store,

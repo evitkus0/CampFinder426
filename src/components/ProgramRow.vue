@@ -40,14 +40,18 @@
                     db.collection("programs").where("interests", "array-contains", this.interest).where("price", "==", 0).get()
                         .then(function (querySnapshot) {
                             querySnapshot.forEach(function (doc) {
-                                vm.programs.push(doc.data());
+                                if(doc.data().approved) {
+                                    vm.programs.push(doc.data());
+                                }
                             });
                         });
                 } else {
                     db.collection("programs").where("interests", "array-contains", this.interest).get()
                         .then(function (querySnapshot) {
                             querySnapshot.forEach(function (doc) {
-                                vm.programs.push(doc.data());
+                                if(doc.data().approved) {
+                                    vm.programs.push(doc.data());
+                                }
                             });
                         });
                 }

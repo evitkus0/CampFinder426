@@ -20,10 +20,16 @@
 
 
         <v-card-actions>
-
-            <v-btn icon>
-                <v-icon>mdi-star</v-icon>
-            </v-btn>
+            <div v-if="favorite">
+                <v-btn icon color="pink" @click="removeFavorite">
+                    <v-icon>mdi-star</v-icon>
+                </v-btn>
+            </div>
+            <div v-else>
+                <v-btn icon @click="addFavorite">
+                    <v-icon>mdi-star</v-icon>
+                </v-btn>
+            </div>
 
             <v-spacer></v-spacer>
 
@@ -93,20 +99,19 @@
                         <b>  ${{this.program.price}}</b>
                     </span>
                 </span>
-
-
             </v-card-text>
-
             <v-card-actions>
                 <v-spacer></v-spacer>
-
-
-                <v-btn
-                        text
-                        @click="dialog = false"
-                >
-                    Add to Favorites
-                </v-btn>
+                <div v-if="favorite">
+                    <v-btn icon color="pink" @click="removeFavorite">
+                        <v-icon>mdi-star</v-icon>
+                    </v-btn>
+                </div>
+                <div v-else>
+                    <v-btn icon @click="addFavorite">
+                        <v-icon>mdi-star</v-icon>
+                    </v-btn>
+                </div>
             </v-card-actions>
         </v-card>
     </v-dialog>
@@ -134,6 +139,17 @@
                 } else {
                     return null;
                 }
+            },
+            favorite() {
+                return this.$store.state.favorites.includes(this.program.id);
+            }
+        },
+        methods: {
+            addFavorite() {
+                this.$store.commit("addFavorite", this.program.id);
+            },
+            removeFavorite() {
+                this.$store.commit("removeFavorite", this.program.id);
             }
         }
     }
