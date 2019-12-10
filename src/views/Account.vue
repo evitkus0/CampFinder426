@@ -111,6 +111,7 @@ export default {
   methods: {
     deleteAccount() {
       this.$store.dispatch("deleteAccount");
+      this.$store.dispatch("logout");
     },
 
     saveChanges() {
