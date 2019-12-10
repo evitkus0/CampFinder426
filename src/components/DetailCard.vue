@@ -14,6 +14,16 @@
                             <v-icon>mdi-star</v-icon>
                         </v-btn>
                     </div>
+                                <div> 
+                <v-btn icon @click="shareFacebook">
+                    <v-icon> mdi-facebook </v-icon> 
+                    </v-btn>
+            </div>
+                        <div> 
+                <v-btn icon @click="shareTwitter">
+                    <v-icon> mdi-twitter </v-icon> 
+                    </v-btn>
+            </div>
                 </v-card-title>
 
                 <v-card-text>
@@ -98,8 +108,45 @@
             },
             removeFavorite() {
                 this.$store.commit("removeFavorite", this.program.id);
-            }
-        }
+            },
+             shareFacebook(){
+                let v = "1";
+                let apitype = "1";
+                let apikey = "2bf8cc342fac66e51a0672ab823f315d"
+                let service = "5";
+                let link = this.program.url;
+                let api = "https://www.shareaholic.com/api/share/?v=1&apitype=1&apikey=2bf8cc342fac66e51a0672ab823f315d&service=5&link=" + link + "&";
+                window.open(api);
+         },
+             shareTwitter(){
+                let v = "1";
+                let apitype = "1";
+                let apikey = "2bf8cc342fac66e51a0672ab823f315d"
+                let link = this.program.url;
+                let api = "https://www.shareaholic.com/api/share/?v=1&apitype=1&apikey=2bf8cc342fac66e51a0672ab823f315d&service=7&link=" + link + "&";
+                window.open(api);
+         }
+        },
+          head: {
+
+    // Meta tags
+    meta: [
+      { name: 'shareaholic:site_id', content: '2bf8cc342fac66e51a0672ab823f315d' },
+      // ...
+    ],
+    // link tags
+    link: [
+      { rel: 'preload', href:"https://cdn.shareaholic.net/assets/pub/shareaholic.js", type: 'script' },
+  
+    ],
+  script: [
+      { type: 'text/javascript', src: "https://cdn.shareaholic.net/assets/pub/shareaholic.js", async: true}, // Insert in body
+      // with shorthand
+      // ...
+    ],
+  }
+    }
+</script>
     }
 </script>
 
