@@ -1,7 +1,8 @@
 <template>
-    <div>
+    <div v-if="programs.length > 0">
     <h3>{{interest}}</h3>
-    <v-slide-group multiple>
+    <v-slide-group multiple
+    width="100%">
         <ProgramCard   v-for="(program, index) in programs"
                            v-bind:program="program"
                            v-bind:index="index"
@@ -21,24 +22,49 @@
             programs: []
         }),
         props: {
-            interest: String
+            interest: String,
+            freeonly: Boolean
         },
         components: {
             ProgramCard
         },
         created() {
-            let db = firebase.firestore();
-            let vm = this;
-            db.collection("programs").where("interests", "array-contains", this.interest).get()
-                .then(function(querySnapshot) {
-                    querySnapshot.forEach(function(doc) {
-                        vm.programs.push(doc.data());
-                    });
-                });
+            this.fetchPrograms(this.freeOnly);
+        },
+        methods: {
+            fetchPrograms(free) {
+                this.programs = [];
+                let db = firebase.firestore();
+                let vm = this;
+                if(free) {
+                    db.collection("programs").where("interests", "array-contains", this.interest).where("price", "==", 0).get()
+                        .then(function (querySnapshot) {
+                            querySnapshot.forEach(function (doc) {
+                                vm.programs.push(doc.data());
+                            });
+                        });
+                } else {
+                    db.collection("programs").where("interests", "array-contains", this.interest).get()
+                        .then(function (querySnapshot) {
+                            querySnapshot.forEach(function (doc) {
+                                vm.programs.push(doc.data());
+                            });
+                        });
+                }
+            }
+        },
+        watch: {
+            freeonly: function(newVal) { // watch it
+                this.fetchPrograms(newVal);
+            }
         }
     }
 </script>
 
 <style scoped>
-
+    h3 {
+        color: dimgray;
+        padding-left: 60px;
+        padding-top: 20px;
+    }
 </style>

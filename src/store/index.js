@@ -74,8 +74,6 @@ export default new Vuex.Store({
 
     },
 
-
-
       userSignIn({ commit }, { email, password}) {
           firebase
               .auth()

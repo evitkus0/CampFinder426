@@ -5,6 +5,7 @@ import About from "../views/About.vue";
 import Submit from "../views/Submit.vue";
 import Contact from "../views/Contact.vue";
 import Account from "../views/Account.vue";
+import Search from "../views/Search.vue";
 
 
 Vue.use(VueRouter);
@@ -30,6 +31,11 @@ const routes = [
     path: "/submit",
     name: "submit",
     component: Submit
+  },
+  {
+    path: "/search",
+    name: "search",
+    component: Search
   },
   {
     path: "/contact",
