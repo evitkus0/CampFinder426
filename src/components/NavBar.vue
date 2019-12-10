@@ -55,7 +55,7 @@
       <v-spacer></v-spacer>
       <span v-if="this.authenticated">
           <v-btn text link to="/account">My Account</v-btn>
-        <v-btn text @click="logout">Sign Out</v-btn>
+        <v-btn text @click="logout" link to="/">Sign Out</v-btn>
       </span>
       <span v-else>
         <SignInDialog></SignInDialog>

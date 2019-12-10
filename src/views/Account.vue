@@ -36,7 +36,7 @@
       </v-row>
       <br>
       <v-card-actions>
-        <v-btn color="primary" @click="deleteAccount">Delete Account</v-btn>
+        <v-btn color="primary" @click="deleteAccount" link to="/">Delete Account</v-btn>
         <v-spacer></v-spacer>
         <v-btn color="primary" @click="saveChanges">Save Changes</v-btn>
       </v-card-actions>
