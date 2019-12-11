@@ -46,6 +46,17 @@
             <v-list-item-title>Contact</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+
+        <div v-if="this.admin">
+          <v-list-item link to="/topsecret">
+          <v-list-item-action>
+            <v-icon>mdi-account-circle</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Admin Portal</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        </div>
       </v-list>
     </v-navigation-drawer>
 
@@ -86,7 +97,8 @@ export default {
   computed: {
     ...mapState(["authenticated"]),
     ...mapState(["user"]),
-    ...mapState(["name"])
+    ...mapState(["name"]),
+    ...mapState(["admin"])
   },
   methods: {
     logout() {

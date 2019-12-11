@@ -21,39 +21,41 @@
 
               <p
                 class="padding"
-              >Our service is greatly augmented by users and organizations that help us build out our portfolio of camps. Your suggestion increases the chances that an aspiring young student can find the program of their dreams!</p>
+              >Our service is greatly augmented by users and organizations that help us build out our portfolio of programs. Your suggestion increases the chances that an aspiring young student can find the program of their dreams!</p>
               <p
                 class="padding"
-              >Please consider filling out the form below to have your camp, or a camp/program you know of, be featured within our platform!</p>
+              >Please consider filling out the form below to have your program, or a program you know of, be featured within our platform!</p>
             </v-layout>
           </v-col>
         </v-row>
       </v-container>
     </div>
     <div class="container" v-if="this.authenticated">
+      <v-card outlined class="pa-4">
       <form>
         <v-row>
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="5">
             <v-text-field
-              v-model="campName"
-              :error-messages="campNameErrors"
-              label="Camp Name*"
+              v-model="name"
+              :error-messages="nameErrors"
+              label="Program Title*"
               required
-              @input="$v.campName.$touch()"
-              @blur="$v.campName.$touch()"
+              @input="$v.name.$touch()"
+              @blur="$v.name.$touch()"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" md="4">
-            <v-text-field label="Program City" v-model="city"></v-text-field>
+          <v-col cols="12" md="5">
+            <v-text-field label="Length" v-model="length"></v-text-field>
           </v-col>
-          <v-col cols="12" md="4">
-            <v-select
-              label="Program State"
-              :items="['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming']"
-              v-model="city"
-            ></v-select>
+          <v-col cols="12" md="2">
+            <v-checkbox
+                    v-model="abroad"
+                    label="Abroad?"
+            ></v-checkbox>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col cols="12" md="6">
         <v-text-field
           v-model="url"
           :error-messages="urlErrors"
@@ -62,20 +64,31 @@
           @input="$v.url.$touch()"
           @blur="$v.url.$touch()"
         ></v-text-field>
+          </v-col>
+            <v-col cols="12" md="6">
 
+        <v-text-field
+                v-model="email"
+                :error-messages="emailErrors"
+                label="Program Contact Email"
+                @input="$v.email.$touch()"
+                @blur="$v.email.$touch()"
+        ></v-text-field>
+            </v-col>
+        </v-row>
         <v-row>
           <v-col cols="12" md="4">
             <v-select
-              :items="['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
-              label="Due Date"
-              v-model="dueDate"
+              :items="['Rolling', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']"
+              label="Application Due Date"
+              v-model="due"
             ></v-select>
           </v-col>
           <v-col cols="12" md="4">
-            <v-select :items="['9', '10', '11', '12']" label="Minimum Grade" v-model="grade"></v-select>
+            <v-select :items="['9', '10', '11', '12']" label="Minimum Grade" v-model="minYear"></v-select>
           </v-col>
           <v-col cols="12" md="4">
-            <v-select :items="['9', '10', '11', '12']" label="Maxiumum Grade" v-model="gradeMax"></v-select>
+            <v-select :items="['9', '10', '11', '12']" label="Maxiumum Grade" v-model="maxYear"></v-select>
           </v-col>
         </v-row>
         <v-row>
@@ -97,7 +110,7 @@
             <v-text-field
               v-model="price"
               :error-messages="priceErrors"
-              label="Cost of Camp"
+              label="Program Cost (Ideally 0!)"
               required
               @input="$v.price.$touch()"
               @blur="$v.price.$touch()"
@@ -105,18 +118,16 @@
           </v-col>
         </v-row>
         <!--Camp Description and Logistics at bottom -->
-        <v-text-field
-          v-model="email"
-          :error-messages="emailErrors"
-          label="E-mail"
-          required
-          @input="$v.email.$touch()"
-          @blur="$v.email.$touch()"
-        ></v-text-field>
+        <v-autocomplete
+                :items="interestOptions"
+                label="For students interested in..."
+                multiple
+                v-model="interests"
+        ></v-autocomplete>
         <v-textarea
           v-model="description"
           :error-messages="descriptionErrors"
-          label="Describe the camp*"
+          label="Description*"
           required
           auto-grow
           rows="4"
@@ -126,134 +137,164 @@
         ></v-textarea>
         <v-textarea
           v-model="logistics"
-          :error-messages="logisticsErrors"
-          label="Logistics Regarding the Camp"
-          required
+          label="Logistics"
           auto-grow
           rows="4"
           outlined
-          @input="$v.logistics.$touch()"
-          @blur="$v.logistics.$touch()"
         ></v-textarea>
+
         <small>*indicates required field</small>
-
-        <v-checkbox
-          v-model="checkbox"
-          :error-messages="checkboxErrors"
-          label="Do you agree?"
-          required
-          @change="$v.checkbox.$touch()"
-          @blur="$v.checkbox.$touch()"
-        ></v-checkbox>
-
-        <v-btn class="mr-4" @click="submit">submit</v-btn>
-        <v-btn @click="clear">clear</v-btn>
+        <v-card-actions>
+          <v-btn @click="clear" color="primary">clear</v-btn>
+          <v-spacer></v-spacer>
+        <v-btn class="mr-4" @click="submit" color="primary">submit</v-btn>
+        </v-card-actions>
       </form>
+    </v-card>
+      <v-dialog v-model="dialog" max-width="290">
+      <v-card>
+        <v-card-text class="text-lg-center">Thank you for your submission!</v-card-text>
+      </v-card>
+    </v-dialog>
     </div>
     <div class="container text-center" v-else>
-      <h2>Please register or sign in to submit program/camp recommendations. This helps us contact you if we have additional questions :)</h2>
-      <!--    <RegistrationDialog></RegistrationDialog>  -->
+      <h2>Please register or sign in to submit program recommendations.</h2>
     </div>
   </div>
 </template>
 
 
-<style>
-.padding {
-  margin-top: 50px;
-  margin-right: 70px;
-}
-.containerPadding {
-  margin-left: 20px;
-  margin-right: 20px;
-}
-</style>
-<script>
-//import RegistrationDialog from "src\components\RegistrationDialog.vue";
-//import RegistrationDialog from "components/RegistrationDialog.vue";
-//import SignInDialog from "components/SignInDialog.vue";
 
+<script>
 import { validationMixin } from "vuelidate";
 import required from "vuelidate/src/validators/required";
 import email from "vuelidate/src/validators/email";
-import minLength from "vuelidate/src/validators/minLength";
 import url from "vuelidate/src/validators/url";
 import { mapState } from "vuex";
+import firebase from "firebase";
+
 export default {
   name: "RegistrationDialog",
 
   mixins: [validationMixin],
   validations: {
-    campName: { required },
+    name: { required },
     description: { required },
-    email: { required, email },
+    price: { required },
     url: { required, url },
-    password: { required, minLength: minLength(8) }
+    email: { email }
   },
   data: () => ({
-    dialog: false,
-    campName: "",
+    name: "",
     email: "",
-    password: "",
-    grade: null,
+    minYear: "",
+    maxYear: "",
+    minAge: "",
+    maxAge: "",
     description: "",
+    logistics: "",
     interests: [],
-    url: ""
+    url: "",
+    abroad: false,
+    length: "",
+    due: "",
+    price: "",
+    dialog: false,
   }),
   computed: {
     ...mapState(["interestOptions"]),
     ...mapState(["authenticated"]),
-    ...mapState(["name"]),
-    campNameErrors() {
+    nameErrors() {
       const errors = [];
-      if (!this.$v.campName.$dirty) return errors;
-      !this.$v.campName.required && errors.push("Camp Name is required.");
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.required && errors.push("Program name is required.");
+      return errors;
+    },
+    priceErrors() {
+      const errors = [];
+      if (!this.$v.price.$dirty) return errors;
+      !this.$v.price.required && errors.push("Cost is required.");
       return errors;
     },
     emailErrors() {
       const errors = [];
       if (!this.$v.email.$dirty) return errors;
       !this.$v.email.email && errors.push("Must be valid email");
-      !this.$v.email.required && errors.push("Email is required");
       return errors;
     },
     urlErrors() {
       const errors = [];
       if (!this.$v.url.$dirty) return errors;
       !this.$v.url.url && errors.push("Must be valid link");
-      !this.$v.url.required && errors.push("Link to camp is required");
-      return errors;
-    },
-    passwordErrors() {
-      const errors = [];
-      if (!this.$v.password.$dirty) return errors;
-      !this.$v.password.minLength &&
-        errors.push("Password must be at least 8 characters long");
-      !this.$v.password.required && errors.push("Password is required.");
+      !this.$v.url.required && errors.push("Link to program website is required");
       return errors;
     },
     descriptionErrors() {
       const errors = [];
       if (!this.$v.description.$dirty) return errors;
       !this.$v.description.required &&
-        errors.push("Camp description is required.");
+        errors.push("Program description is required.");
       return errors;
     }
   },
   methods: {
     submit() {
       if (!this.$v.$anyError) {
-        this.$store.dispatch("userJoin", {
-          email: this.email,
-          password: this.password,
-          name: this.name,
+        let db = firebase.firestore();
+        let vm = this;
+        let id = (Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000).toString();
+        db.collection("programs").doc(id).set({
+          id: id,
+          approved: false,
+          abroad: this.abroad,
           interests: this.interests,
-          grade: this.grade
+          minYear: this.minYear,
+          maxYear: this.maxYear,
+          minAge: this.minAge,
+          maxAge: this.maxAge,
+          title: this.name,
+          contact: this.email,
+          summary: this.description,
+          logistics: this.logistics,
+          url: this.url,
+          length: this.length,
+          due: this.due,
+          price: this.price,
+          time: ""
+        }).then(function() {
+            vm.dialog = true;
+            this.clear();
         });
-        this.dialog = false;
       }
+    },
+    clear() {
+      this.name = "";
+      this.email = "";
+      this.minYear = "";
+      this.maxYear = "";
+              this.minAge = "";
+              this.maxAge = "";
+              this.description = "";
+              this.logistics = "",
+              this.interests = [];
+              this.url = "";
+              this.abroad = false;
+              this.length = "";
+              this.due = "";
+              this.price = "";
     }
   }
 };
 </script>
 
+
+<style>
+  .padding {
+    margin-top: 50px;
+    margin-right: 70px;
+  }
+  .containerPadding {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+</style>

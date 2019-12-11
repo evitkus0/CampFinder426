@@ -110,18 +110,18 @@
                 this.$store.commit("removeFavorite", this.program.id);
             },
              shareFacebook(){
-                let v = "1";
+               /* let v = "1";
                 let apitype = "1";
                 let apikey = "2bf8cc342fac66e51a0672ab823f315d"
-                let service = "5";
+                let service = "5";*/
                 let link = this.program.url;
                 let api = "https://www.shareaholic.com/api/share/?v=1&apitype=1&apikey=2bf8cc342fac66e51a0672ab823f315d&service=5&link=" + link + "&";
                 window.open(api);
          },
              shareTwitter(){
-                let v = "1";
+               /* let v = "1";
                 let apitype = "1";
-                let apikey = "2bf8cc342fac66e51a0672ab823f315d"
+                let apikey = "2bf8cc342fac66e51a0672ab823f315d"*/
                 let link = this.program.url;
                 let api = "https://www.shareaholic.com/api/share/?v=1&apitype=1&apikey=2bf8cc342fac66e51a0672ab823f315d&service=7&link=" + link + "&";
                 window.open(api);
@@ -147,8 +147,7 @@
   }
     }
 </script>
-    }
-</script>
+
 
 <style scoped>
     a {

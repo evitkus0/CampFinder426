@@ -6,7 +6,7 @@ import Submit from "../views/Submit.vue";
 import Contact from "../views/Contact.vue";
 import Account from "../views/Account.vue";
 import Search from "../views/Search.vue";
-
+import AdminPortal from "../views/AdminPortal.vue";
 
 Vue.use(VueRouter);
 
@@ -16,7 +16,11 @@ const routes = [
     name: "home",
     component: Home
   },
-
+  {
+    path: "/topsecret",
+    name: "adminportal",
+    component: AdminPortal
+  },
   {
     path: "/about",
     name: "about",

@@ -15,7 +15,8 @@ export default new Vuex.Store({
       interests: [],
     interestOptions: [],
       uid: null,
-      favorites: []
+      favorites: [],
+      admin: false
   },
   mutations: {
     setUser(state, payload) {
@@ -41,6 +42,9 @@ export default new Vuex.Store({
     },
       setFavorites(state, payload) {
           state.favorites = payload;
+      },
+      setAdmin(state, payload) {
+          state.admin = payload;
       },
       addFavorite(state, payload) {
         this.state.favorites.push(payload);
@@ -98,7 +102,8 @@ export default new Vuex.Store({
               grade: grade,
               interests: interests,
               email: email,
-              favorites: this.state.favorites
+              favorites: this.state.favorites,
+              admin: false
           });
         })
         .catch(() => {
@@ -119,10 +124,15 @@ export default new Vuex.Store({
                   let db = firebase.firestore();
                   db.collection("users").doc(user.user.uid).get().then(function(doc) {
                       let data = doc.data();
-                      commit("setFavorites", data.favorites);
+                      if(data.favorites.length > 0) {
+                          commit("setFavorites", data.favorites);
+                      }
                       commit("setInterests", data.interests);
                       commit("setName", data.name);
                       commit("setGrade", data.grade);
+                      if(data.admin) {
+                          commit("setAdmin", data.admin);
+                      }
                   });
               })
               .catch(() => {
@@ -144,6 +154,8 @@ export default new Vuex.Store({
           commit("setGrade", null);
           commit("setUid", null);
           commit("setFavorites", []);
+          commit("setAdmin", false);
+
       },
 
   },
