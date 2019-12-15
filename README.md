@@ -22,3 +22,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+For admin view, username: rsvpcleep@gmail.com and password: passpass.
